@@ -1,24 +1,47 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
 
 function App() {
+
+  const [items, setItems] = useState([
+    "Do laundry",
+    "Plan meals",
+    "Clean car"
+  ])
+
+  const [newItem, setNewItem] = useState("")
+
+  const itemNodes = items.map((item, index) => {
+    return( <li key={index} >
+      <span>{item}</span>
+    </li> )
+  })
+
+  const handleItemInput = (event) => {
+    setNewItem(event.target.value)
+  }
+
+  const saveNewItem = (event) => {
+    event.preventDefault()
+    const copyItems = [...items, newItem]
+    setItems(copyItems)
+    setNewItem('')
+  } 
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>To Do List</h1>
+
+      <form onSubmit={saveNewItem}>
+        <input type="text" id="new-item" value={newItem} onChange={handleItemInput}/>
+        <button type='submit'>Save Item</button>
+      </form>
+
+      <ul>
+        {itemNodes}
+      </ul>
+
+    </>
   );
 }
 
