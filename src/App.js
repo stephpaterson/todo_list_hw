@@ -4,21 +4,33 @@ import {useState} from 'react';
 function App() {
 
   const [items, setItems] = useState([
-    "Do laundry",
-    "Plan meals",
-    "Clean car"
+    {name: "Do laundry", priority: "High"},
+    {name: "Plan meals", priority: "High" },
+    {name: "Clean car", priority: "Low"}
   ])
 
-  const [newItem, setNewItem] = useState("")
+  const initialValues = {
+    name: "",
+    priority: ""
+  }
+
+  const [newItem, setNewItem] = useState(initialValues)
 
   const itemNodes = items.map((item, index) => {
     return( <li key={index} >
-      <span>{item}</span>
+      <span>{item.name}</span>
+      <span>{item.priority}</span>
     </li> )
   })
 
   const handleItemInput = (event) => {
-    setNewItem(event.target.value)
+    // setNewItem(event.target.value)
+    
+    const { name, value } = event.target;
+    setNewItem({
+      ...newItem,
+      [name]: value,
+    })
   }
 
   const saveNewItem = (event) => {
@@ -33,7 +45,9 @@ function App() {
       <h1>To Do List</h1>
 
       <form onSubmit={saveNewItem}>
-        <input type="text" id="new-item" value={newItem} onChange={handleItemInput}/>
+        <input type="text" id="new-item" placeholder="New to do item" value={newItem.name} name="name" onChange={handleItemInput}/>
+        High <input type="radio" value={newItem.priority} name="priority" onChange={handleItemInput}/> 
+        Low <input type="radio" value={newItem.priority} name="priority" onChange={handleItemInput}/> 
         <button type='submit'>Save Item</button>
       </form>
 

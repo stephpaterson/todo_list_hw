@@ -1,6 +1,8 @@
-## A To Do list created with React
+# A To Do list created with React
 
-# Getting Started with Create React App
+A basic app to create a to do list that shows the priorities of each task.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
